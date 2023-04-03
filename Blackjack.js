@@ -65,6 +65,7 @@ function handleClickHit() {
     let cardPicked = deck.splice(randIdx, 1)[0]
     playersHand.push(cardPicked)
     calculateScore()
+    handleClickStay()
   }
 }
 
