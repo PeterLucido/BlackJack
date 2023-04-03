@@ -55,6 +55,17 @@ function handleClickHit() {
   }
 }
 
+function handleClickHit() {
+  if (playersHand.length >= 2) {
+    let randIdx = Math.floor(Math.random() * deck.length)
+    let cardPicked = deck.splice(randIdx, 1)[0]
+    playersHand.push(cardPicked)
+    calculateScore()
+  } else {
+    alert("You must deal first")
+  }
+}
+
 // function to calculate the score of the player and dealer
 function calculateScore() { 
   console.log(playersHand, "Player")
