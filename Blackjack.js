@@ -11,7 +11,7 @@ let cardToRemove
 // Event listeners
 init()
 
-document.getElementById('deal').addEventListener('click', handleClick)
+document.getElementById('deal').addEventListener('click', handleClickDeal)
 document.getElementById('hit').addEventListener('click', handleClickHit)
 document.getElementById('stay').addEventListener('click', handleClickStay)
 
@@ -26,7 +26,7 @@ function init() {
 
 //Functions 
 
-function handleClick(){
+function handleClickDeal(){
   //function to deal 2 cards to the player and 2 cards to the dealer with one of the cards being face down to the dealer
   if (deck.length >= 4) {
     if (playersHand.length === 0) {
@@ -81,10 +81,10 @@ function calculateScore() {
   for (let i = 0; i < playersHand.length; i++) {
     playerTotal += cardValues(playersHand[i])
   } 
-  if (playerTotal > 21) {
+  if (playerTotal < 12) {
     for (let i = 0; i < playersHand.length; i++) {
       if (playersHand[i][1] === "A") {
-        playerTotal -= 10
+        playerTotal += 10
       }
     }
   }
@@ -94,14 +94,14 @@ function calculateScore() {
     for (let i = 0; i < dealersHand.length; i++) {
       dealerTotal += cardValues(dealersHand[i])
     }
-    if (dealerTotal > 21) {
+    if (dealerTotal < 12) {
       for (let i = 0; i < dealersHand.length; i++) {
         if (dealersHand[i][1] === "A") {
-          dealerTotal -= 10
+          dealerTotal += 10
         }
       }
       if (dealerTotal > 21) {
-        alert("Dealer busted you win")
+        return ("Dealer Busted, you win!")
       }
     }
   console.log(playerTotal, "Player")
@@ -112,7 +112,7 @@ function calculateScore() {
 // define the value of each card
 function cardValues(card) {
   if (card[1] === "A") {
-    return 11
+    return 1
   } else if (card[1] === "Q" || card[1] === "K" || card[1] === "J" || card[1] === "1") {
     return 10
   } else {
