@@ -13,6 +13,7 @@ init()
 
 document.getElementById('deal').addEventListener('click', handleClick)
 document.getElementById('hit').addEventListener('click', handleClickHit)
+document.getElementById('stay').addEventListener('click', handleClickStay)
 
 
 // Functions
@@ -43,7 +44,6 @@ function handleClick(){
     }
   }
 }
-
 function handleClickHit() {
   if (playersHand.length >= 2) {
     let randIdx = Math.floor(Math.random() * deck.length)
@@ -51,18 +51,24 @@ function handleClickHit() {
     playersHand.push(cardPicked)
     calculateScore()
   } else {
-    alert("You must deal first")
+    //make it to where after i hit stay I cant hit again
+    
+  
+    
   }
 }
-
-function handleClickHit() {
+// create a function that will allow the player to stay with the cards they have and then have the dealer pull cards until he is either equal to or greater than 17. 
+function handleClickStay() {
   if (playersHand.length >= 2) {
-    let randIdx = Math.floor(Math.random() * deck.length)
-    let cardPicked = deck.splice(randIdx, 1)[0]
-    playersHand.push(cardPicked)
-    calculateScore()
+    while (dealerTotal < 17) {
+      let randIdx = Math.floor(Math.random() * deck.length)
+      let cardPicked = deck.splice(randIdx, 1)[0]
+      dealersHand.push(cardPicked)
+      calculateScore()
+    }
   } else {
-    alert("You must deal first")
+    //make it so that the player must deal first without an alert
+    
   }
 }
 
