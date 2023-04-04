@@ -5,6 +5,8 @@ let dealersHand = []
 let playersHand = []
 let playerTotal = 0
 let dealerTotal = 0
+let playersCash = 1000
+let bet = 100
 let stayClick 
 let cardToRemove
 
@@ -14,7 +16,11 @@ let cardToRemove
 document.getElementById('deal').addEventListener('click', handleClickDeal)
 document.getElementById('hit').addEventListener('click', handleClickHit)
 document.getElementById('stay').addEventListener('click', handleClickStay)
-const messageEl = document.getElementById('message')
+// document.getElementById('5').addEventListener('click', handleClick5)
+// document.getElementById('10').addEventListener('click', handleClick10)
+// document.getElementById('25').addEventListener('click', handleClick25)
+document.getElementById('bet').addEventListener('click', handleClickBet)
+// const messageEl = document.getElementById('message')
 //add event listener for when the player or dealer wins
 
 
@@ -167,13 +173,21 @@ function cardValues(card) {
 
 //function to declare a winner, loser, or tie
 function winner(){
-  if (playerTotal > dealerTotal && playerTotal <= 21) {
+  if (playerTotal > dealerTotal && playerTotal <= 21 || dealerTotal > 21) {
     alert("You win!")
+    if (playerTotal === 21) {
+      bet = bet * 2.5
+    } else {
+      bet = bet * 2
+    } 
+    playersCash = playersCash + bet
   } else if (dealerTotal > playerTotal) {
     alert("Dealer wins!")
+    playersCash = playersCash - bet
   } else if (playerTotal === dealerTotal) {
     alert("It's a wash!")
-  }
+    playersCash = playersCash + bet
+  } 
   //push player and dealer hands to deck2
     deck2.push(playersHand, dealersHand)
     playersHand=[]
@@ -182,11 +196,24 @@ function winner(){
     // dealersHand.splice(0, dealersHand.length)
   //clear player and dealer hands
   //clear player and dealer totals
-  
 }
 
 
-
+//function for placing a bet
+function handleClickBet() {
+  if (playersCash > 0) {
+    if (bet > playersCash) {
+      alert("You don't have enough money to bet that much")
+    } else {
+      playersCash = playersCash - bet
+      // bet = bet * 2
+      bet.textContent = bet
+      // cash.textContent = playersCash
+    }
+  } else {
+    alert("You're out of money")
+  }
+}
 
 
 
