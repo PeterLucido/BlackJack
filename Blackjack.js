@@ -4,12 +4,11 @@ let dealersHand = []
 let playersHand = []
 let playerTotal = 0
 let dealerTotal = 0
-
+let stayClick 
 let cardToRemove
 
 
 // Event listeners
-init()
 
 document.getElementById('deal').addEventListener('click', handleClickDeal)
 document.getElementById('hit').addEventListener('click', handleClickHit)
@@ -23,19 +22,37 @@ const messageEl = document.getElementById('message')
 
 // Initialize deck 1 with array of 52 cards 
 
+init()
 function init() {
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  let stayClick = false
   // render()
+  // updateMessage()
   // renderInitialMessage()
 }
 
 //Functions 
-// function renderInitialMessage() {
-//   messageEl.textContent = "Welcome to Black Jack"
-// }
+function render(){
+  updateMessage()
+}
 
-// function render(){
-//   updateMessage()
+function renderInitialMessage() {
+  messageEl.textContent = "Welcome to Black Jack"
+}
+
+// function updateMessage(){
+//   if (dealerTotal = ) {
+  
+//     messageEl.textContent = "You win!"
+//   } else if (dealerTotal > playerTotal && dealerTotal <= 21) {
+//     messageEl.textContent = "Dealer wins!"
+//   } else if (playerTotal === dealerTotal) {
+//     messageEl.textContent = "It's a wash!"
+//   } else if (playerTotal > 21) {
+//     messageEl.textContent = "Bust!"
+//   } else if (dealerTotal > 21 && playerTotal <= 21) {
+//     messageEl.textContent = "You win!"
+//   }
 // }
 
 
@@ -60,18 +77,22 @@ function handleClickDeal(){
 // if the player has 2 cards and clicks hit then a card will be added to the players hand
 //once players total is greater than 21 the player cannot hit anymore.
 function handleClickHit() {
-  if (playersHand.length < 2 || playerTotal < 21) { 
-    let randIdx = Math.floor(Math.random() * deck.length)
-    let cardPicked = deck.splice(randIdx, 1)[0]
-    playersHand.push(cardPicked)
-    calculateScore()
-    handleClickStay()
+  if (stayClick){
+    alert ("cant hit after stay")
+} else {
+    if (playersHand.length < 2 || playerTotal < 21) { 
+      let randIdx = Math.floor(Math.random() * deck.length)
+      let cardPicked = deck.splice(randIdx, 1)[0]
+      playersHand.push(cardPicked)
+      calculateScore()
+    }
   }
 }
 
 // create a function that will allow the player to stay with the cards they have and then have the dealer pull cards until he is either equal to or greater than 17. 
 //make it to where after i hit stay I cant hit again
 function handleClickStay() {
+  stayClick = true
   if (playersHand.length >= 2 && playerTotal <= 21) {
     while (dealerTotal < 17) {
       let randIdx = Math.floor(Math.random() * deck.length)
@@ -129,6 +150,8 @@ function cardValues(card) {
     return parseInt(card[2])
   }
 }
+
+//function to declare a winner, loser, or tie
 
 
 
