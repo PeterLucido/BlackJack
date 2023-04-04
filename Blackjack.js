@@ -1,5 +1,6 @@
 //varibles 
 let deck = []
+let deck2 = []
 let dealersHand = []
 let playersHand = []
 let playerTotal = 0
@@ -25,20 +26,20 @@ const messageEl = document.getElementById('message')
 init()
 function init() {
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-  let stayClick = false
+  
   // render()
   // updateMessage()
   // renderInitialMessage()
 }
 
 //Functions 
-function render(){
-  updateMessage()
-}
+// function render(){
+//   updateMessage()
+// }
 
-function renderInitialMessage() {
-  messageEl.textContent = "Welcome to Black Jack"
-}
+// function renderInitialMessage() {
+//   messageEl.textContent = "Welcome to Black Jack"
+// }
 
 // function updateMessage(){
 //   if (dealerTotal = ) {
@@ -69,6 +70,10 @@ function handleClickDeal(){
         playersHand.push(playerCard)
         // render(playerCard)
         calculateScore()
+        if (dealerTotal === 21 && playerTotal < 21) {
+          alert("dealer wins")
+          winner()
+        }
       }
       // render(cardPicked)
     }
@@ -79,15 +84,21 @@ function handleClickDeal(){
 function handleClickHit() {
   if (stayClick){
     alert ("cant hit after stay")
-} else {
+    return 
+  }  
+  if (dealerTotal === 21 && playerTotal < 21) {
+    alert("dealer wins")
+    winner()
+    return 
+  }
     if (playersHand.length < 2 || playerTotal < 21) { 
       let randIdx = Math.floor(Math.random() * deck.length)
       let cardPicked = deck.splice(randIdx, 1)[0]
       playersHand.push(cardPicked)
       calculateScore()
-    }
   }
 }
+
 
 // create a function that will allow the player to stay with the cards they have and then have the dealer pull cards until he is either equal to or greater than 17. 
 //make it to where after i hit stay I cant hit again
@@ -100,6 +111,7 @@ function handleClickStay() {
       dealersHand.push(cardPicked)
       calculateScore()
     }
+    winner()
   }
 }
 
@@ -121,6 +133,7 @@ function calculateScore() {
   }
   if (playerTotal > 21) {
     alert('player busted')
+    winner()
   }
   aceCount = 0
   for (let i = 0; i < dealersHand.length; i++) {
@@ -134,6 +147,7 @@ function calculateScore() {
   }
   if (dealerTotal > 21) {
     alert('dealer busted')
+    winner()
   }
   console.log(playerTotal, "Player")
   console.log(dealerTotal, "Dealer")
@@ -152,8 +166,24 @@ function cardValues(card) {
 }
 
 //function to declare a winner, loser, or tie
-
-
+function winner(){
+  if (playerTotal > dealerTotal && playerTotal <= 21) {
+    alert("You win!")
+  } else if (dealerTotal > playerTotal) {
+    alert("Dealer wins!")
+  } else if (playerTotal === dealerTotal) {
+    alert("It's a wash!")
+  }
+  //push player and dealer hands to deck2
+    deck2.push(playersHand, dealersHand)
+    playersHand=[]
+    dealersHand=[]
+    // playersHand.splice(0, playersHand.length)
+    // dealersHand.splice(0, dealersHand.length)
+  //clear player and dealer hands
+  //clear player and dealer totals
+  
+}
 
 
 
