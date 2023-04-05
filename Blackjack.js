@@ -72,6 +72,10 @@ function handleClickHit() {
     let cardPicked = deck.splice(randIdx, 1)[0]
     playersHand.push(cardPicked)
     calculateScore()
+    if (playersHand > 21){
+      messageEl.textContent = "You bust!"
+      return
+    }
       if (stayClick){
         messageEl.textContent = "You can't hit after you stay"
         return 

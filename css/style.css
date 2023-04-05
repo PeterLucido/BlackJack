@@ -26,27 +26,40 @@ body {
   font-size: 20px;
 }
 #bet5 {
-  height: 50px;
+  height: 100px;
   width: 100px;
   font-size: 20px;
+  border-radius: 50%;
+  background-color: rgb(234, 176, 16);
 }
 #bet10 {
-  height: 50px;
+  height: 100px;
   width: 100px;
   font-size: 20px;
+  border-radius: 50%;
+  background-color: blue;
 }
 #bet25 {
-  height: 50px;
+  height: 100px;
   width: 100px;
   font-size: 20px;
+  border-radius: 50%;
+  background-color: #b02328;
 }
 #deal {
   height: 50px;
   width: 100px;
   font-size: 20px;
 }
+#bet-buttons{
+  padding: 10px;
+  margin: px;
+}
 
-
+#bet {
+  margin: 30px;
+  
+}
 
 
 
