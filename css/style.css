@@ -1,7 +1,6 @@
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
-  /* background-color: green; */
 }
 
 #dealer-cards img{
@@ -19,11 +18,13 @@ body {
   height: 50px;
   width: 100px;
   font-size: 20px;
+  border-radius: 8px;
 }
 #stay {
   height: 50px;
   width: 100px;
   font-size: 20px;
+  border-radius: 8px;
 }
 #bet5 {
   height: 100px;
@@ -50,6 +51,7 @@ body {
   height: 50px;
   width: 100px;
   font-size: 20px;
+  border-radius: 8px;
 }
 #bet-buttons{
   padding: 10px;
@@ -58,10 +60,21 @@ body {
 
 #bet {
   margin: 30px;
-  
 }
 
+#reset {
+  height: 50px;
+  width: 150px;
+  font-size: 20px;
+  border-radius: 8px;
+  background-color: #ec333a;
+  color: white;
+}
 
+#reset:hover{
+  background-color: black;
+  color: #ec333a;
+}
 
 
 

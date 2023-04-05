@@ -16,6 +16,7 @@ let playersHandEl = document.getElementById('playersHand')
 let dealersHandEl = document.getElementById('dealersHand')
 
 const cardEl = document.getElementById('card')
+const messageEl = document.getElementById('message')
 
 document.getElementById('deal').addEventListener('click', handleClickDeal)
 document.getElementById('hit').addEventListener('click', handleClickHit)
@@ -23,25 +24,18 @@ document.getElementById('stay').addEventListener('click', handleClickStay)
 document.getElementById('bet5').addEventListener('click', handleClick5)
 document.getElementById('bet10').addEventListener('click', handleClick10)
 document.getElementById('bet25').addEventListener('click', handleClick25)
-document.getElementById('bet').addEventListener('click', handleClickBet)
 document.getElementById('reset').addEventListener('click', handleClickReset)
-const messageEl = document.getElementById('message')
 
 // Initialize deck 1 with array of 52 cards 
 
 init()
 function init() {
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-  
-  // renderInitialMessage()
-}
 
-// updateMessage()
-// renderCard()
+}
 
 
 function handleClickDeal(){
-  //function to deal 2 cards to the player and 2 cards to the dealer with one of the cards being face down to the dealer
   stayClick = false
   if (deck.length >= 4) {
     messageEl.textContent = "Place your bets!"
@@ -50,19 +44,17 @@ function handleClickDeal(){
         let randIdx = Math.floor(Math.random() * deck.length)
         let cardPicked = deck.splice(randIdx, 1)[0]
         dealersHand.push(cardPicked)
-        // render(cardPicked)
         let playerCard = deck.splice(Math.floor(Math.random() * deck.length), 1)[0]
         playersHand.push(playerCard)
-        // render(playerCard)
         calculateScore()
         if (dealerTotal === 21 && playerTotal < 21) {
           winner()
-          // render(cardPicked)
         }
       }
     }
   }
 }
+
 
 // if the player has 2 cards and clicks hit then a card will be added to the players hand
 //once players total is greater than 21 the player cannot hit anymore.
@@ -171,7 +163,7 @@ function checkBlackjack() {
 //function to declare a winner, loser, or tie
 function winner(){
   if (playerTotal > dealerTotal && playerTotal <= 21 || dealerTotal > 21) {
-    if (playerTotal === 21) {
+    if (playerTotal === 21 && playersHand.length === 2) {
       bet = bet * 2.5
     } else {
       bet = bet * 2
@@ -184,9 +176,11 @@ function winner(){
     messageEl.textContent = "Push!"
     playersCash = playersCash + bet
   } 
+  
     deck2.push(playersHand, dealersHand)
     playersHand=[]
     dealersHand=[]
+    bet = 0
 }
 
 
