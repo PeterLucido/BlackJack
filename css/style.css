@@ -1,6 +1,7 @@
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
+  /* background-color: green; */
 }
 
 #dealer-cards img{
@@ -20,6 +21,21 @@ body {
   font-size: 20px;
 }
 #stay {
+  height: 50px;
+  width: 100px;
+  font-size: 20px;
+}
+#bet5 {
+  height: 50px;
+  width: 100px;
+  font-size: 20px;
+}
+#bet10 {
+  height: 50px;
+  width: 100px;
+  font-size: 20px;
+}
+#bet25 {
   height: 50px;
   width: 100px;
   font-size: 20px;
