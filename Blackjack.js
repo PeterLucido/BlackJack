@@ -19,7 +19,7 @@ let playersHandEl = document.getElementById('playersHand')
 let dealersHandEl = document.getElementById('dealersHand')
 let fiveBtnEl = document.getElementById('bet5')
 let tenBtnEl = document.getElementById('bet10')
-let twentyfiveBtnEl = document.getElementById('bet25')
+let twentyFiveBtnEl = document.getElementById('bet25')
 let betTotalEl = document.getElementById('bettotal')
 
 
@@ -276,12 +276,16 @@ function handleClick5(){
   console.log(bet)
 }
 
-// let fiveBtnEl = document.getElementById('bet5')
-// let tenBtnEl = document.getElementById('bet10')
-// let twentyfiveBtnEl = document.getElementById('bet25')
-
 fiveBtnEl.addEventListener("click", function (evt) {
   betTotalEl.textContent = parseInt(betTotalEl.textContent) + 5
+})
+
+tenBtnEl.addEventListener("click", function (evt) {
+  betTotalEl.textContent = parseInt(betTotalEl.textContent) + 10
+})
+
+twentyFiveBtnEl.addEventListener("click", function (evt) {
+  betTotalEl.textContent = parseInt(betTotalEl.textContent) + 25
 })
 
 function handleClick10(){
