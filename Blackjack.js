@@ -17,6 +17,13 @@ let deckEl = document.getElementById('deck')
 let deck2El = document.getElementById('deck2')
 let playersHandEl = document.getElementById('playersHand')
 let dealersHandEl = document.getElementById('dealersHand')
+let fiveBtnEl = document.getElementById('bet5')
+let tenBtnEl = document.getElementById('bet10')
+let twentyfiveBtnEl = document.getElementById('bet25')
+let betTotalEl = document.getElementById('bettotal')
+
+
+
 
 function renderCardsDeal(){
   let x = document.createElement('div')
@@ -75,6 +82,8 @@ function removeCards() {
 
 const cardEl = document.getElementById('card')
 const messageEl = document.getElementById('message')
+const betEl = document.getElementById('bettotal')
+
 
 document.getElementById('deal').addEventListener('click', handleClickDeal)
 document.getElementById('hit').addEventListener('click', handleClickHit)
@@ -262,9 +271,18 @@ function handleClickBet() {
 
 //function to place bets
 function handleClick5(){
+  betEl.textContent
   bet = bet + 5
   console.log(bet)
 }
+
+// let fiveBtnEl = document.getElementById('bet5')
+// let tenBtnEl = document.getElementById('bet10')
+// let twentyfiveBtnEl = document.getElementById('bet25')
+
+fiveBtnEl.addEventListener("click", function (evt) {
+  betTotalEl.textContent = parseInt(betTotalEl.textContent) + 5
+})
 
 function handleClick10(){
   bet = bet + 10
@@ -290,6 +308,7 @@ function handleClickReset(){
   stayClick = false
   cardToRemove = null
   cardsInPlay = []
+  removeCards()
   init()
 }
 
