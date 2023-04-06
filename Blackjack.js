@@ -20,7 +20,7 @@ let fiveBtnEl = document.getElementById('bet5')
 let tenBtnEl = document.getElementById('bet10')
 let twentyFiveBtnEl = document.getElementById('bet25')
 let betTotalEl = document.getElementById('bettotal')
-let cashlEl = document.getElementById('cash')
+let cashEl = document.getElementById('cash')
 let resetEl = document.getElementById('reset')
 
 function renderCardsDeal(){
@@ -28,7 +28,7 @@ function renderCardsDeal(){
   let z = document.createElement('div')
   let A = document.createElement('div')
   let B = document.createElement('div')
-  A.setAttribute("class", `card large ${dealersHand[0]}`)
+  A.setAttribute("class", `card large back-blue`)
   B.setAttribute("class", `card large ${dealersHand[1]}`)
   x.setAttribute("class", `card large ${playersHand[0]}`)
   z.setAttribute("class", `card large ${playersHand[1]}`)
@@ -73,7 +73,7 @@ function removeCards() {
 const cardEl = document.getElementById('card')
 const messageEl = document.getElementById('message')
 const betEl = document.getElementById('bettotal')
-const cashEl = document.getElementById('cash')
+// const cashEl = document.getElementById('cash')
 
 document.getElementById('deal').addEventListener('click', handleClickDeal)
 document.getElementById('hit').addEventListener('click', handleClickHit)
@@ -85,7 +85,7 @@ document.getElementById('reset').addEventListener('click', handleClickReset)
 
 init()
 function init() {
-  deck = ["♦A","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   messageEl.textContent = "Let's Play!"
 }
 
@@ -107,21 +107,7 @@ function handleClickDeal(){
   }
   messageEl.textContent = "Let's Play!"
 }
-
-// function checkBlackjack() {
-//   if (dealersHand.length === 2 && dealerTotal === 21) {
-//     messageEl.textContent = "Dealer has Blackjack. You lose!";
-//     betTotalEl.textContent = 0
-//     cashEl.textContent = playersCash - bet
-//     return
-//   }
-//   if (playersHand.length === 2 && playerTotal === 21) {
-//     messageEl.textContent = "Blackjack! You win!";
-//     betTotalEl.textContent = 0
-//     cashEl.textContent = playersCash + bet
-//     return
-//   }
-// }
+deckFill()
 
 // if the player has 2 cards and clicks hit then a card will be added to the players hand
 //once players total is greater than 21 the player cannot hit anymore.
@@ -219,6 +205,7 @@ function cardValues(card) {
 // function to declare a winner, loser, or tie
 function winner(){
   if (playerTotal > dealerTotal && playerTotal <= 21 || dealerTotal > 21) {
+    console.log(playersCash)
     if (playerTotal === 21 && playersHand.length === 2) {
       bet = bet * 2.5
       betTotalEl.textContent = 0
@@ -249,7 +236,7 @@ function winner(){
     betTotalEl.textContent = 0
     cashEl.textContent = playersCash + bet
   }
-    deck2.push(playersHand, dealersHand)
+    deck2.push(...playersHand, ...dealersHand)
     playersHand=[]
     dealersHand=[]
     bet = 0
@@ -288,6 +275,14 @@ function handleClick25(){
   console.log(bet)
 }
 
+//function to push all the cards from deck to deck2 once deck his 6 cards or less
+function deckFill(){
+  if (deck.length <= 6){
+    deck2.push(deck)
+    console.log(deck)
+  }
+}
+
 function handleClickReset(){
   deck = []
   deck2 = []
@@ -295,12 +290,13 @@ function handleClickReset(){
   playersHand = []
   playerTotal = 0
   dealerTotal = 0
-  playersCash = []
   bet = 0
   bettotal = 0
   stayClick = false
   cardToRemove = null
   cardsInPlay = []
+  playersCash = 1000
+  cashEl.textContent = playersCash
   removeCards()
   init()
 }

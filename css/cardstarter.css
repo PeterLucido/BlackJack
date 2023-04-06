@@ -41,6 +41,11 @@
     background-color: rgba(195, 195, 195, 0.5);
     border: 0.15em dashed #daa520; } */
 
+.card,
+.card,
+.card {
+  background-image: url(); }
+  
 .card.diamonds.A,
 .card.dA,
 .card.♦A {
