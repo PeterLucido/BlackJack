@@ -46,6 +46,7 @@ function renderCardsHit(){
   let y = document.getElementById("player-hand")
   y.append(z)
 }
+
 //render the dealers hand
 function renderCardsStay(){
   // let A = document.createElement('div')
@@ -55,10 +56,20 @@ function renderCardsStay(){
   let c = document.getElementById("dealer-hand")
   // c.append(A)
   c.append(B)
-
 }
 
-
+function removeCards() {
+  let x = document.getElementById("player-hand")
+  let y = document.getElementById("dealer-hand")
+  x.innerHTML = ''
+  y.innerHTML = ''
+  dealersHand = []
+  playersHand = []
+  playerTotal = 0
+  dealerTotal = 0
+  // dealersHandEl.innerHTML = ''
+  // playersHandEl.innerHTML = ''
+}
 
 
 
@@ -85,6 +96,7 @@ function handleClickDeal(){
   if (deck.length >= 4) {
     messageEl.textContent = "Place your bets!"
     if (playersHand.length === 0 && bet > 0) {
+      removeCards()
       for (let i = 0; i < 2; i++) {
         let randIdx = Math.floor(Math.random() * deck.length)
         let cardPicked = deck.splice(randIdx, 1)[0]
@@ -99,7 +111,9 @@ function handleClickDeal(){
       renderCardsDeal()
     }
   }
+  
 }
+//remove the cards rendered when the player clicks deal again
 
 
 // if the player has 2 cards and clicks hit then a card will be added to the players hand
@@ -123,7 +137,6 @@ function handleClickHit() {
         messageEl.textContent = "Dealer wins"
         return 
     }
-    
   }
 }
 
@@ -225,7 +238,6 @@ function winner(){
     messageEl.textContent = "Push!"
     playersCash = playersCash + bet
   } 
-  
     deck2.push(playersHand, dealersHand)
     playersHand=[]
     dealersHand=[]
