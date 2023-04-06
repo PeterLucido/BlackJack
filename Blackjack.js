@@ -8,12 +8,44 @@ let dealerTotal = 0
 let playersCash = 1000
 let bet = 0
 let stayClick 
-let cardToRemove
+let cardToRemove 
+let cardsInPlay =[]
+// const renderDeck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+
 
 let deckEl = document.getElementById('deck')
 let deck2El = document.getElementById('deck2')
 let playersHandEl = document.getElementById('playersHand')
 let dealersHandEl = document.getElementById('dealersHand')
+
+function renderCardsDeal(){
+  let x = document.createElement('div')
+  let z = document.createElement('div')
+  
+  z.setAttribute("class", `card large ${playersHand[1]}`)
+  x.setAttribute("class", `card large ${playersHand[0]}`)
+  let y = document.getElementById("player-hand")
+  
+  y.append(x)
+  y.append(z)
+}
+// write a function that will render a new card to the players hand
+function renderCardsHit(){
+  let z = document.createElement('div')
+  z.setAttribute("class", `card large ${playersHand[playersHand.length-1]}`)
+  let y = document.getElementById("player-hand")
+  y.append(z)
+}
+function renderCardsStay(){
+  // let z = document.createElement('div')
+  // z.setAttribute("class", `card large ${playersHand[playersHand.length-1]}`)
+  // let y = document.getElementById("player-hand")
+  // y.append(z)
+}
+
+
+
+
 
 const cardEl = document.getElementById('card')
 const messageEl = document.getElementById('message')
@@ -25,13 +57,11 @@ document.getElementById('bet5').addEventListener('click', handleClick5)
 document.getElementById('bet10').addEventListener('click', handleClick10)
 document.getElementById('bet25').addEventListener('click', handleClick25)
 document.getElementById('reset').addEventListener('click', handleClickReset)
-
 // Initialize deck 1 with array of 52 cards 
 
 init()
 function init() {
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-
 }
 
 
@@ -51,6 +81,7 @@ function handleClickDeal(){
           winner()
         }
       }
+      renderCardsDeal()
     }
   }
 }
@@ -63,6 +94,7 @@ function handleClickHit() {
     let randIdx = Math.floor(Math.random() * deck.length)
     let cardPicked = deck.splice(randIdx, 1)[0]
     playersHand.push(cardPicked)
+    renderCardsHit()
     calculateScore()
     if (playersHand > 21){
       messageEl.textContent = "You bust!"
@@ -76,7 +108,8 @@ function handleClickHit() {
         messageEl.textContent = "Dealer wins"
         return 
     }
-  } 
+    
+  }
 }
 
 
@@ -128,8 +161,8 @@ function calculateScore() {
   if (dealerTotal > 21) {
     winner()
   }
-  console.log(playerTotal, "Player")
-  console.log(dealerTotal, "Dealer")
+  console.log(playersHand, "Player")
+  console.log(dealersHand, "Dealer")
 }
 
 
@@ -216,13 +249,6 @@ function handleClick25(){
 }
 
 
-// function to render the cards that are dealt
-// function renderCard() {
-//   let cardEl = document.createElement("players-hand")
-//   cardEl.classList.add("card")
-  
-//   playersHandEl.appendChild(cardEl)
-// }
 
 function handleClickReset(){
   deck = []
@@ -237,3 +263,6 @@ function handleClickReset(){
   cardToRemove = null
   init()
 }
+
+
+
