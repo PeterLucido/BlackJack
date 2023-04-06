@@ -21,14 +21,24 @@ let dealersHandEl = document.getElementById('dealersHand')
 function renderCardsDeal(){
   let x = document.createElement('div')
   let z = document.createElement('div')
-  
+  let A = document.createElement('div')
+  let B = document.createElement('div')
+  A.setAttribute("class", `card large ${dealersHand[0]}`)
+  B.setAttribute("class", `card large ${dealersHand[1]}`)
   z.setAttribute("class", `card large ${playersHand[1]}`)
   x.setAttribute("class", `card large ${playersHand[0]}`)
+  let c = document.getElementById("dealer-hand")
   let y = document.getElementById("player-hand")
-  
+  c.append(A)
+  c.append(B)
   y.append(x)
   y.append(z)
 }
+
+
+
+
+
 // write a function that will render a new card to the players hand
 function renderCardsHit(){
   let z = document.createElement('div')
@@ -36,11 +46,16 @@ function renderCardsHit(){
   let y = document.getElementById("player-hand")
   y.append(z)
 }
+//render the dealers hand
 function renderCardsStay(){
-  // let z = document.createElement('div')
-  // z.setAttribute("class", `card large ${playersHand[playersHand.length-1]}`)
-  // let y = document.getElementById("player-hand")
-  // y.append(z)
+  // let A = document.createElement('div')
+  let B = document.createElement('div')
+  // A.setAttribute("class", `card large ${dealersHand[0]}`)
+  B.setAttribute("class", `card large ${dealersHand[dealersHand.length-1]}`)
+  let c = document.getElementById("dealer-hand")
+  // c.append(A)
+  c.append(B)
+
 }
 
 
@@ -122,6 +137,7 @@ function handleClickStay() {
       let randIdx = Math.floor(Math.random() * deck.length)
       let cardPicked = deck.splice(randIdx, 1)[0]
       dealersHand.push(cardPicked)
+      renderCardsStay()
       calculateScore()
     }
     winner()
@@ -261,6 +277,7 @@ function handleClickReset(){
   bet = 0
   stayClick = false
   cardToRemove = null
+  cardsInPlay = []
   init()
 }
 
