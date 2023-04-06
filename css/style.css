@@ -1,7 +1,9 @@
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
-  background-image: ;
+  background-image: url(/images/145063639-abstract-vignette-green-chalkboard-use-as-a-background.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #dealer-cards img{
