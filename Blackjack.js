@@ -52,7 +52,7 @@ function renderCardsDeal(){
 
   let c = document.getElementById("dealer-hand")
   let y = document.getElementById("player-hand")
-  
+
   c.append(A)
   c.append(B)
   y.append(x)
@@ -119,7 +119,7 @@ function handleClickHit() {
     calculateScore()
     if (playerTotal > 21){
       messageEl.textContent = "You bust!"
-      renderCardsHit()
+      // renderCardsHit()
       playersHand=[]
     dealersHand=[]
     }
