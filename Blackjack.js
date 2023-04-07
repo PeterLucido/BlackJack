@@ -225,9 +225,9 @@ function winner(){
     bet = 0
     return
   } else if (playerTotal === 21 && playersHand.length === 2) {
-      bet = bet * 2.5
+      // bet = bet * 2.5
       betTotalEl.textContent = 0
-      cashEl.textContent = playersCash + bet
+      cashEl.textContent = playersCash + bet * 2.5
       messageEl.textContent = "Black Jack!"
       deck2.push(...playersHand, ...dealersHand)
       playersHand=[]
@@ -236,7 +236,7 @@ function winner(){
       return
     } else {
       if (playerTotal === dealerTotal) {
-        bet = 0
+        bet = bet
         betTotalEl.textContent = 0
         cashEl.textContent = playersCash 
         messageEl.textContent = "Push!"
@@ -248,8 +248,8 @@ function winner(){
       cashEl.textContent = playersCash - bet
       messageEl.textContent = "Player bust!"
     } else {
-      bet = bet * 2
-      cashEl.textContent = playersCash + bet
+      // bet = bet * 2
+      cashEl.textContent = playersCash + bet * 2
       messageEl.textContent = "You win!"
     } 
     betTotalEl.textContent = 0
