@@ -13,8 +13,6 @@ body {
   background-attachment: fixed;
 }
 
-
-
 #button-container {
   height: 175px;
   width: 125px;
@@ -146,12 +144,14 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  text-align: center;
   align-items: center;
   right: 48.5%;
   top: 38%;
 }
 
 #title {
+  font-size: 19px;
   align-items: center;
   margin: 10px;
   position: absolute;
@@ -159,39 +159,25 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  right: 43%;
+  right: 44%;
   top: 5%;
 }
 
-#playa{
+.cash-bet{
   align-items: center;
   margin: 10px;
   position: absolute;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  right: 50%;
-  top: 43%;
-}
-
-#deale{
-  align-items: center;
-  margin: 10px;
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
- 
-  right: 50%;
-  top: 10%;
+  right: 29%;
+  top: 56%;
 }
 
 #message{
   text-align: center;
 }
-
 
 #player-container{
   margin: auto;

@@ -1,4 +1,3 @@
-//varibles 
 let deck = []
 let deck2 = []
 let dealersHand = []
@@ -22,25 +21,44 @@ let twentyFiveBtnEl = document.getElementById('bet25')
 let betTotalEl = document.getElementById('bettotal')
 let cashEl = document.getElementById('cash')
 let resetEl = document.getElementById('reset')
+const cardEl = document.getElementById('card')
+const messageEl = document.getElementById('message')
+const betEl = document.getElementById('bettotal')
+
+document.getElementById('deal').addEventListener('click', handleClickDeal)
+document.getElementById('hit').addEventListener('click', handleClickHit)
+document.getElementById('stay').addEventListener('click', handleClickStay)
+document.getElementById('bet5').addEventListener('click', handleClick5)
+document.getElementById('bet10').addEventListener('click', handleClick10)
+document.getElementById('bet25').addEventListener('click', handleClick25)
+document.getElementById('reset').addEventListener('click', handleClickReset)
+
+init()
+function init() {
+  deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  messageEl.textContent = "Let's Play!"
+}
 
 function renderCardsDeal(){
   let x = document.createElement('div')
   let z = document.createElement('div')
   let A = document.createElement('div')
   let B = document.createElement('div')
+
   A.setAttribute("class", `card large back-blue`)
   B.setAttribute("class", `card large ${dealersHand[1]}`)
   x.setAttribute("class", `card large ${playersHand[0]}`)
   z.setAttribute("class", `card large ${playersHand[1]}`)
+
   let c = document.getElementById("dealer-hand")
   let y = document.getElementById("player-hand")
+  
   c.append(A)
   c.append(B)
   y.append(x)
   y.append(z)
 }
 
-// write a function that will render a new card to the players hand
 function renderCardsHit(){
   let z = document.createElement('div')
   z.setAttribute("class", `card large ${playersHand[playersHand.length-1]}`)
@@ -48,7 +66,6 @@ function renderCardsHit(){
   y.append(z)
 }
 
-//render the dealers hand
 function renderCardsStay(){
   let c = document.getElementById("dealer-hand")
   c.innerHTML = ''
@@ -68,25 +85,6 @@ function removeCards() {
   playersHand = []
   playerTotal = 0
   dealerTotal = 0
-}
-
-const cardEl = document.getElementById('card')
-const messageEl = document.getElementById('message')
-const betEl = document.getElementById('bettotal')
-// const cashEl = document.getElementById('cash')
-
-document.getElementById('deal').addEventListener('click', handleClickDeal)
-document.getElementById('hit').addEventListener('click', handleClickHit)
-document.getElementById('stay').addEventListener('click', handleClickStay)
-document.getElementById('bet5').addEventListener('click', handleClick5)
-document.getElementById('bet10').addEventListener('click', handleClick10)
-document.getElementById('bet25').addEventListener('click', handleClick25)
-document.getElementById('reset').addEventListener('click', handleClickReset)
-
-init()
-function init() {
-  deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-  messageEl.textContent = "Let's Play!"
 }
 
 function handleClickDeal(){
@@ -109,8 +107,6 @@ function handleClickDeal(){
   deckFill()
 }
 
-// if the player has 2 cards and clicks hit then a card will be added to the players hand
-//once players total is greater than 21 the player cannot hit anymore.
 function handleClickHit() {
   if (stayClick) {
     return
@@ -139,7 +135,6 @@ function handleClickStay() {
   if (playersHand.length >= 2 && playerTotal <= 21) {
     if (dealersHand.length >= 2 && dealerTotal <= 21) {
       renderCardsStay()
-      // winner()
     }
     renderCardsStay()
     if (playersHand.length === 2 && playerTotal === 21){
@@ -157,7 +152,6 @@ function handleClickStay() {
   winner()
 }
 
-// function to calculate the score of the player and dealer
 function calculateScore() { 
   console.log(playersHand, "Player")
   console.log(dealersHand, "Dealer")
@@ -197,10 +191,8 @@ function calculateScore() {
   console.log(playersHand, "Player")
   console.log(dealersHand, "Dealer")
   handleClickDeal()
-  // winner()
 }
 
-// define the value of each card
 function cardValues(card) {
   if (card[1] === "A") {
     return 1
@@ -211,8 +203,6 @@ function cardValues(card) {
   }
 }
 
-
-// function to declare a winner, loser, or tie
 function winner(){
   if (dealerTotal === 21 && dealersHand.length === 2) {
     betTotalEl.textContent = 0
@@ -225,7 +215,6 @@ function winner(){
     bet = 0
     return
   } else if (playerTotal === 21 && playersHand.length === 2) {
-      // bet = bet * 2.5
       betTotalEl.textContent = 0
       cashEl.textContent = playersCash + bet * 2.5
       messageEl.textContent = "Black Jack!"
@@ -248,7 +237,6 @@ function winner(){
       cashEl.textContent = playersCash - bet
       messageEl.textContent = "Player bust!"
     } else {
-      // bet = bet * 2
       cashEl.textContent = playersCash + bet * 2
       messageEl.textContent = "You win!"
     } 
@@ -273,7 +261,6 @@ function winner(){
     bet = 0
 }
 
-//function to place bets
 fiveBtnEl.addEventListener("click", function (evt) {
   betTotalEl.textContent = parseInt(betTotalEl.textContent) + 5
 })
@@ -306,7 +293,6 @@ function handleClick25(){
   console.log(bet)
 }
 
-//function to push all the cards from deck to deck2 once deck his 6 cards or less
 function deckFill(){
   if (deck.length <= 6){
     deck.push(...deck2)
