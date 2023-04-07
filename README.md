@@ -41,6 +41,6 @@ https://github.com/PeterLucido/css-card-deck
 * JavaScript  
 
 ## IceBox Items:
-I plan to create splitting and doubling-down options. I also want to design and style based on the original wireframe I made when I first started.
+I plan to create splitting and doubling-down options. I also want to design and style based on the original wireframe I made when I first started this project.
 
 ![image](/images/Black%20Jack%20game-07.png)

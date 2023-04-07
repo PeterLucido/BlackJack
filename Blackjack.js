@@ -4,7 +4,7 @@ let dealersHand = []
 let playersHand = []
 let playerTotal = 0
 let dealerTotal = 0
-let playersCash = 1000
+let playersCash 
 let bet = 0
 let bettotal = 0
 let stayClick 
@@ -18,7 +18,6 @@ let dealersHandEl = document.getElementById('dealersHand')
 let fiveBtnEl = document.getElementById('bet5')
 let tenBtnEl = document.getElementById('bet10')
 let twentyFiveBtnEl = document.getElementById('bet25')
-let betTotalEl = document.getElementById('bettotal')
 let cashEl = document.getElementById('cash')
 let resetEl = document.getElementById('reset')
 const cardEl = document.getElementById('card')
@@ -121,7 +120,7 @@ function handleClickHit() {
     if (playerTotal > 21){
       messageEl.textContent = "You bust!"
       playersHand=[]
-    dealersHand=[]
+      dealersHand=[]
     }
     if (stayClick){
       messageEl.textContent = "You can't hit after you stay"
@@ -153,8 +152,6 @@ function handleClickStay() {
 }
 
 function calculateScore() { 
-  console.log(playersHand, "Player")
-  console.log(dealersHand, "Dealer")
   playerTotal = 0
   dealerTotal = 0
   let aceCount = 0
@@ -170,8 +167,7 @@ function calculateScore() {
   }
   if (playerTotal > 21) {
     messageEl.textContent = "Bust!"
-    betTotalEl.textContent = 0
-    // cashEl.textContent = playersCash - bet
+    betEl.textContent = 0
   }
   aceCount = 0
   for (let i = 0; i < dealersHand.length; i++) {
@@ -185,11 +181,8 @@ function calculateScore() {
   }
   if (dealerTotal > 21) {
     messageEl.textContent = "Dealer Bust You Win!"
-    betTotalEl.textContent = 0
-    // cashEl.textContent = playersCash + bet * 2
+    betEl.textContent = 0
   }
-  console.log(playersHand, "Player")
-  console.log(dealersHand, "Dealer")
   handleClickDeal()
 }
 
@@ -205,18 +198,18 @@ function cardValues(card) {
 
 function winner(){
   if (dealerTotal === 21 && dealersHand.length === 2) {
-    betTotalEl.textContent = 0
+    betEl.textContent = 0
     cashEl.textContent = playersCash - bet
     messageEl.textContent = "Dealer gets Black Jack!"
-    console.log(dealersHandEl)
     deck2.push(...playersHand, ...dealersHand)
     playersHand=[]
     dealersHand=[]
     bet = 0
     return
   } else if (playerTotal === 21 && playersHand.length === 2) {
-      betTotalEl.textContent = 0
-      cashEl.textContent = playersCash + bet * 2.5
+      betEl.textContent = 0
+      playersCash = playersCash + bet * 2.5
+      cashEl.textContent = playersCash
       messageEl.textContent = "Black Jack!"
       deck2.push(...playersHand, ...dealersHand)
       playersHand=[]
@@ -226,34 +219,42 @@ function winner(){
     } else {
       if (playerTotal === dealerTotal) {
         bet = bet
-        betTotalEl.textContent = 0
+        betEl.textContent = 0
+        playersCash = playersCash
         cashEl.textContent = playersCash 
         messageEl.textContent = "Push!"
       }
     }
   if (playerTotal > dealerTotal && playerTotal <= 21 || dealerTotal > 21) {
     if (playerTotal > 21){
-      betTotalEl.textContent = 0
-      cashEl.textContent = playersCash - bet
+      betEl.textContent = 0
+      playersCash = playersCash - bet
+      cashEl.textContent = playersCash
       messageEl.textContent = "Player bust!"
     } else {
-      cashEl.textContent = playersCash + bet * 2
+      playersCash = playersCash + bet
+      cashEl.textContent = playersCash
       messageEl.textContent = "You win!"
     } 
-    betTotalEl.textContent = 0
-    cashEl.textContent = playersCash + bet
+    betEl.textContent = 0
+    playersCash = playersCash + bet
+    cashEl.textContent = playersCash
   } else if (dealerTotal > playerTotal && dealerTotal <= 21) {
     messageEl.textContent = "You lose!"
-    betTotalEl.textContent = 0
-    cashEl.textContent = playersCash - bet
+    betEl.textContent = 0
+    playersCash = playersCash - bet
+    cashEl.textContent = playersCash
   } else if (playerTotal === dealerTotal) {
     messageEl.textContent = "Push!"
-    betTotalEl.textContent = 0
-    cashEl.textContent = playersCash + 0
+    betEl.textContent = 0
+    playersCash = playersCash + 0
+    cashEl.textContent = playersCash
   } else if (dealerTotal > 21) {
     messageEl.textContent = "Dealer busts! You win!"
-    betTotalEl.textContent = 0
-    cashEl.textContent = playersCash + bet
+    betEl.textContent = 0
+    playersCash = playersCash + bet
+    cashEl.textContent = playersCash
+    
   }
     deck2.push(...playersHand, ...dealersHand)
     playersHand=[]
@@ -262,45 +263,43 @@ function winner(){
 }
 
 fiveBtnEl.addEventListener("click", function (evt) {
-  betTotalEl.textContent = parseInt(betTotalEl.textContent) + 5
-  cashEl.textContent = playersCash - parseInt(betTotalEl.textContent)
+  betEl.textContent = parseInt(betEl.textContent) + 5
+  cashEl.textContent = playersCash - parseInt(betEl.textContent)
 })
 
 tenBtnEl.addEventListener("click", function (evt) {
-  betTotalEl.textContent = parseInt(betTotalEl.textContent) + 10
-  cashEl.textContent = playersCash - parseInt(betTotalEl.textContent)
+  betEl.textContent = parseInt(betEl.textContent) + 10
+  cashEl.textContent = playersCash - parseInt(betEl.textContent)
 })
 
 twentyFiveBtnEl.addEventListener("click", function (evt) {
-  betTotalEl.textContent = parseInt(betTotalEl.textContent) + 25
-  cashEl.textContent = playersCash - parseInt(betTotalEl.textContent)
+  betEl.textContent = parseInt(betEl.textContent) + 25
+  cashEl.textContent = playersCash - parseInt(betEl.textContent)
 })
 
 resetEl.addEventListener("click", function (evt) {
-  betTotalEl.textContent = 0
+  betEl.textContent = 0
 })
 
 function handleClick5(){
-  betEl.textContent
   bet = bet + 5
-  console.log(bet)
+  betEl.textContent
 }
 
 function handleClick10(){
   bet = bet + 10
-  console.log(bet)
+  betEl.textContent
 }
 
 function handleClick25(){
   bet = bet + 25
-  console.log(bet)
+  betEl.textContent
 }
 
 function deckFill(){
   if (deck.length <= 6){
     deck.push(...deck2)
     deck2 = []
-    console.log(deck)
   }
 }
 
