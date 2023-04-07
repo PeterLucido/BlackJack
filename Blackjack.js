@@ -37,6 +37,7 @@ init()
 function init() {
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   messageEl.textContent = "Let's Play!"
+  playersCash = 1000
 }
 
 function renderCardsDeal(){
@@ -170,7 +171,7 @@ function calculateScore() {
   if (playerTotal > 21) {
     messageEl.textContent = "Bust!"
     betTotalEl.textContent = 0
-    cashEl.textContent = playersCash - bet
+    // cashEl.textContent = playersCash - bet
   }
   aceCount = 0
   for (let i = 0; i < dealersHand.length; i++) {
@@ -185,7 +186,7 @@ function calculateScore() {
   if (dealerTotal > 21) {
     messageEl.textContent = "Dealer Bust You Win!"
     betTotalEl.textContent = 0
-    cashEl.textContent = playersCash + bet
+    // cashEl.textContent = playersCash + bet * 2
   }
   console.log(playersHand, "Player")
   console.log(dealersHand, "Dealer")
@@ -262,17 +263,17 @@ function winner(){
 
 fiveBtnEl.addEventListener("click", function (evt) {
   betTotalEl.textContent = parseInt(betTotalEl.textContent) + 5
-  cashEl.textContent = playersCash - 5
+  cashEl.textContent = playersCash - parseInt(betTotalEl.textContent)
 })
 
 tenBtnEl.addEventListener("click", function (evt) {
   betTotalEl.textContent = parseInt(betTotalEl.textContent) + 10
-  cashEl.textContent = playersCash - 10
+  cashEl.textContent = playersCash - parseInt(betTotalEl.textContent)
 })
 
 twentyFiveBtnEl.addEventListener("click", function (evt) {
   betTotalEl.textContent = parseInt(betTotalEl.textContent) + 25
-  cashEl.textContent = playersCash - 25
+  cashEl.textContent = playersCash - parseInt(betTotalEl.textContent)
 })
 
 resetEl.addEventListener("click", function (evt) {
@@ -315,7 +316,6 @@ function handleClickReset(){
   stayClick = false
   cardToRemove = null
   cardsInPlay = []
-  playersCash = 1000
   cashEl.textContent = playersCash
   removeCards()
   init()
