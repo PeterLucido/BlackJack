@@ -106,8 +106,8 @@ function handleClickDeal(){
     }
   }
   messageEl.textContent = "Let's Play!"
+  deckFill()
 }
-deckFill()
 
 // if the player has 2 cards and clicks hit then a card will be added to the players hand
 //once players total is greater than 21 the player cannot hit anymore.
@@ -123,7 +123,8 @@ function handleClickHit() {
     calculateScore()
     if (playerTotal > 21){
       messageEl.textContent = "You bust!"
-    playersHand=[]
+      renderCardsHit()
+      playersHand=[]
     dealersHand=[]
     }
     if (stayClick){
@@ -138,7 +139,13 @@ function handleClickStay() {
   if (playersHand.length >= 2 && playerTotal <= 21) {
     if (dealersHand.length >= 2 && dealerTotal <= 21) {
       renderCardsStay()
+      // winner()
     }
+    renderCardsStay()
+    if (playersHand.length === 2 && playerTotal === 21){
+    winner()
+    return
+  }
     while (dealerTotal < 17) {
       let randIdx = Math.floor(Math.random() * deck.length)
       let cardPicked = deck.splice(randIdx, 1)[0]
@@ -207,30 +214,44 @@ function cardValues(card) {
 
 // function to declare a winner, loser, or tie
 function winner(){
-  if (playerTotal > dealerTotal && playerTotal <= 21 || dealerTotal > 21) {
-    if (playerTotal === 21 && playersHand.length === 2) {
+  if (dealerTotal === 21 && dealersHand.length === 2) {
+    betTotalEl.textContent = 0
+    cashEl.textContent = playersCash - bet
+    messageEl.textContent = "Dealer gets Black Jack!"
+    console.log(dealersHandEl)
+    deck2.push(...playersHand, ...dealersHand)
+    playersHand=[]
+    dealersHand=[]
+    bet = 0
+    return
+  } else if (playerTotal === 21 && playersHand.length === 2) {
       bet = bet * 2.5
       betTotalEl.textContent = 0
       cashEl.textContent = playersCash + bet
       messageEl.textContent = "Black Jack!"
+      deck2.push(...playersHand, ...dealersHand)
+      playersHand=[]
+      dealersHand=[]
+      bet = 0
       return
-    }  
-    if (dealerTotal === 21 && dealersHand.length === 2) {
+    } else {
+      if (playerTotal === dealerTotal) {
+        bet = 0
+        betTotalEl.textContent = 0
+        cashEl.textContent = playersCash 
+        messageEl.textContent = "Push!"
+      }
+    }
+  if (playerTotal > dealerTotal && playerTotal <= 21 || dealerTotal > 21) {
+    if (playerTotal > 21){
       betTotalEl.textContent = 0
       cashEl.textContent = playersCash - bet
-      messageEl.textContent = "Dealer gets Black Jack!"
-      console.log(dealersHandEl)
-      return
+      messageEl.textContent = "Player bust!"
     } else {
       bet = bet * 2
       cashEl.textContent = playersCash + bet
       messageEl.textContent = "You win!"
     } 
-    if (playerTotal > 21){
-      betTotalEl.textContent = 0
-      cashEl.textContent = playersCash - bet
-      messageEl.textContent = "Player bust!"
-    }
     betTotalEl.textContent = 0
     cashEl.textContent = playersCash + bet
   } else if (dealerTotal > playerTotal && dealerTotal <= 21) {
@@ -289,6 +310,7 @@ function handleClick25(){
 function deckFill(){
   if (deck.length <= 6){
     deck.push(...deck2)
+    deck2 = []
     console.log(deck)
   }
 }
