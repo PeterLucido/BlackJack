@@ -136,6 +136,9 @@ function handleClickHit() {
 function handleClickStay() {
   stayClick = true
   if (playersHand.length >= 2 && playerTotal <= 21) {
+    if (dealersHand.length >= 2 && dealerTotal <= 21) {
+      renderCardsStay()
+    }
     while (dealerTotal < 17) {
       let randIdx = Math.floor(Math.random() * deck.length)
       let cardPicked = deck.splice(randIdx, 1)[0]
@@ -205,12 +208,19 @@ function cardValues(card) {
 // function to declare a winner, loser, or tie
 function winner(){
   if (playerTotal > dealerTotal && playerTotal <= 21 || dealerTotal > 21) {
-    console.log(playersCash)
     if (playerTotal === 21 && playersHand.length === 2) {
       bet = bet * 2.5
       betTotalEl.textContent = 0
       cashEl.textContent = playersCash + bet
       messageEl.textContent = "Black Jack!"
+      return
+    }  
+    if (dealerTotal === 21 && dealersHand.length === 2) {
+      betTotalEl.textContent = 0
+      cashEl.textContent = playersCash - bet
+      messageEl.textContent = "Dealer gets Black Jack!"
+      console.log(dealersHandEl)
+      return
     } else {
       bet = bet * 2
       cashEl.textContent = playersCash + bet
@@ -278,7 +288,7 @@ function handleClick25(){
 //function to push all the cards from deck to deck2 once deck his 6 cards or less
 function deckFill(){
   if (deck.length <= 6){
-    deck2.push(deck)
+    deck.push(...deck2)
     console.log(deck)
   }
 }
