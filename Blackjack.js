@@ -119,7 +119,6 @@ function handleClickHit() {
     calculateScore()
     if (playerTotal > 21){
       messageEl.textContent = "You bust!"
-      // renderCardsHit()
       playersHand=[]
     dealersHand=[]
     }
@@ -216,7 +215,7 @@ function winner(){
     return
   } else if (playerTotal === 21 && playersHand.length === 2) {
       betTotalEl.textContent = 0
-      cashEl.textContent = playersCash + bet * 2.5
+      cashEl.textContent = playersCash + bet * 1.5
       messageEl.textContent = "Black Jack!"
       deck2.push(...playersHand, ...dealersHand)
       playersHand=[]
@@ -237,7 +236,7 @@ function winner(){
       cashEl.textContent = playersCash - bet
       messageEl.textContent = "Player bust!"
     } else {
-      cashEl.textContent = playersCash + bet * 2
+      cashEl.textContent = playersCash + bet * 1
       messageEl.textContent = "You win!"
     } 
     betTotalEl.textContent = 0
@@ -263,14 +262,17 @@ function winner(){
 
 fiveBtnEl.addEventListener("click", function (evt) {
   betTotalEl.textContent = parseInt(betTotalEl.textContent) + 5
+  cashEl.textContent = playersCash - 5
 })
 
 tenBtnEl.addEventListener("click", function (evt) {
   betTotalEl.textContent = parseInt(betTotalEl.textContent) + 10
+  cashEl.textContent = playersCash - 10
 })
 
 twentyFiveBtnEl.addEventListener("click", function (evt) {
   betTotalEl.textContent = parseInt(betTotalEl.textContent) + 25
+  cashEl.textContent = playersCash - 25
 })
 
 resetEl.addEventListener("click", function (evt) {
