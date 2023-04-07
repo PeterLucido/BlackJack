@@ -127,7 +127,7 @@ body {
   right: 50%;
   top: 50%;
 }
-.cash-bet{
+#cash-bet{
   margin: auto;
   position: absolute;
   display: flex;
@@ -135,8 +135,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  width: 50%;
-  right: 1.5%;
+  right: 29.5%;
   top: 50%;
 }
 
@@ -150,6 +149,30 @@ body {
   align-items: center;
   right: 48.5%;
   top: 38%;
+}
+
+#title {
+  align-items: center;
+  margin: 10px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  right: 43%;
+  top: 5%;
+}
+
+#playa{
+  align-items: center;
+  margin: 10px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  right: 50%;
+  top: 43%;
 }
 
 #deale{
