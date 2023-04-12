@@ -118,7 +118,7 @@ function handleClickHit() {
     renderCardsHit()
     calculateScore()
     if (playerTotal > 21){
-      messageEl.textContent = "You bust!"
+      messageEl.textContent = "You busted!"
       playersHand=[]
       dealersHand=[]
     }
@@ -166,7 +166,7 @@ function calculateScore() {
     playerTotal += 10
   }
   if (playerTotal > 21) {
-    messageEl.textContent = "Bust!"
+    messageEl.textContent = "You bust!"
     betEl.textContent = 0
   }
   aceCount = 0
@@ -180,7 +180,7 @@ function calculateScore() {
     dealerTotal += 10
   }
   if (dealerTotal > 21) {
-    messageEl.textContent = "Dealer Bust You Win!"
+    messageEl.textContent = "The dealer busted you win!"
     betEl.textContent = 0
   }
   handleClickDeal()
@@ -200,7 +200,7 @@ function winner(){
   if (dealerTotal === 21 && dealersHand.length === 2) {
     betEl.textContent = 0
     cashEl.textContent = playersCash - bet
-    messageEl.textContent = "Dealer gets Black Jack!"
+    messageEl.textContent = "The dealer got Black Jack! You lose."
     deck2.push(...playersHand, ...dealersHand)
     playersHand=[]
     dealersHand=[]
@@ -230,7 +230,7 @@ function winner(){
       betEl.textContent = 0
       playersCash = playersCash - bet
       cashEl.textContent = playersCash
-      messageEl.textContent = "Player bust!"
+      messageEl.textContent = "You busted!"
     } else {
       playersCash = playersCash + bet
       cashEl.textContent = playersCash
@@ -250,7 +250,7 @@ function winner(){
     playersCash = playersCash + 0
     cashEl.textContent = playersCash
   } else if (dealerTotal > 21) {
-    messageEl.textContent = "Dealer busts! You win!"
+    messageEl.textContent = "The dealer busted. You win!"
     betEl.textContent = 0
     playersCash = playersCash + bet
     cashEl.textContent = playersCash
@@ -264,13 +264,14 @@ function winner(){
 
 
 function cashCheck (){
-  if (playersCash - bet < 0){
+  if (playersCash - bet <= 0){
     messageEl.textContent = "You're out of money please reset the game."
-    deal.disabled = true
-    hit.disabled = true
-    stay.disabled = true
+    bet5.disabled = true
+    bet10.disabled = true
+    bet25.disabled = true
   }
 }
+
 
 
 fiveBtnEl.addEventListener("click", function () {
