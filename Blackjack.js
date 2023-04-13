@@ -25,6 +25,7 @@ const cardEl = document.getElementById('card')
 const messageEl = document.getElementById('message')
 const betEl = document.getElementById('bettotal')
 
+
 document.getElementById('deal').addEventListener('click', handleClickDeal)
 document.getElementById('hit').addEventListener('click', handleClickHit)
 document.getElementById('stay').addEventListener('click', handleClickStay)
@@ -50,9 +51,11 @@ function init() {
   fiveBtnEl.disabled = false
   tenBtnEl.disabled = false
   twentyFiveBtnEl.disabled = false
+  deal.disabled = false
+  hit.disabled = false
+  stay.disabled = false
   removeCards()
 }
-
 
 function renderCardsDeal(){
   let playersCard1 = document.createElement('div')
@@ -217,7 +220,6 @@ function winner(){
     playersCash = playersCash
     betEl.textContent = 0
     messageEl.textContent = "The dealer got Black Jack! You lose."
-    cashCheck()
     deck2.push(...playersHand, ...dealersHand)
     playersHand=[]
     dealersHand=[]
@@ -249,7 +251,6 @@ function winner(){
       playersCash = playersCash
       cashEl.textContent = playersCash
       messageEl.textContent = "You busted!"
-      cashCheck()
     } else {
       playersCash = playersCash + bet
       cashEl.textContent = playersCash
@@ -263,7 +264,6 @@ function winner(){
     cashEl.textContent = playersCash
     playersCash = playersCash
     betEl.textContent = 0
-    cashCheck()
     cashEl.textContent = playersCash
   } else if (playerTotal === dealerTotal) {
     messageEl.textContent = "Push!"
@@ -275,12 +275,12 @@ function winner(){
     betEl.textContent = 0
     playersCash = playersCash + bet
     cashEl.textContent = playersCash
-    
   }
-    deck2.push(...playersHand, ...dealersHand)
-    playersHand=[]
-    dealersHand=[]
-    bet = 0
+  deck2.push(...playersHand, ...dealersHand)
+  playersHand=[]
+  dealersHand=[]
+  bet = 0
+  cashCheck()
 }
 
 function cashCheck (){
@@ -290,6 +290,9 @@ function cashCheck (){
     fiveBtnEl.disabled = true
     tenBtnEl.disabled = true
     twentyFiveBtnEl.disabled = true
+    deal.disabled = true
+    hit.disabled = true
+    stay.disabled = true
   }
 }
 
