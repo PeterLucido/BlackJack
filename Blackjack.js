@@ -4,12 +4,13 @@ let dealersHand = []
 let playersHand = []
 let playerTotal = 0
 let dealerTotal = 0
-let playersCash 
+let playersCash
 let bet = 0
 let bettotal = 0
 let stayClick 
 let cardToRemove 
 let cardsInPlay =[]
+let gameOver
 
 let deckEl = document.getElementById('deck')
 let deck2El = document.getElementById('deck2')
@@ -30,14 +31,28 @@ document.getElementById('stay').addEventListener('click', handleClickStay)
 document.getElementById('bet5').addEventListener('click', handleClick5)
 document.getElementById('bet10').addEventListener('click', handleClick10)
 document.getElementById('bet25').addEventListener('click', handleClick25)
-document.getElementById('reset').addEventListener('click', handleClickReset)
+document.getElementById('reset').addEventListener('click', init)
 
 init()
 function init() {
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   messageEl.textContent = "Let's Play!"
   playersCash = 1000
+  gameOver = false
+  deck2 = []
+  bet = 0
+  bettotal = 0
+  stayClick = false
+  cardToRemove = null
+  cardsInPlay = []
+  cashEl.textContent = playersCash
+  betEl.textContent = bettotal
+  fiveBtnEl.disabled = false
+  tenBtnEl.disabled = false
+  twentyFiveBtnEl.disabled = false
+  removeCards()
 }
+
 
 function renderCardsDeal(){
   let playersCard1 = document.createElement('div')
@@ -201,6 +216,7 @@ function winner(){
     betEl.textContent = 0
     cashEl.textContent = playersCash - bet
     messageEl.textContent = "The dealer got Black Jack! You lose."
+    cashCheck()
     deck2.push(...playersHand, ...dealersHand)
     playersHand=[]
     dealersHand=[]
@@ -231,6 +247,7 @@ function winner(){
       playersCash = playersCash - bet
       cashEl.textContent = playersCash
       messageEl.textContent = "You busted!"
+      cashCheck()
     } else {
       playersCash = playersCash + bet
       cashEl.textContent = playersCash
@@ -243,6 +260,7 @@ function winner(){
     messageEl.textContent = "You lose!"
     betEl.textContent = 0
     playersCash = playersCash - bet
+    cashCheck()
     cashEl.textContent = playersCash
   } else if (playerTotal === dealerTotal) {
     messageEl.textContent = "Push!"
@@ -262,34 +280,48 @@ function winner(){
     bet = 0
 }
 
-
 function cashCheck (){
   if (playersCash - bet <= 0){
+    gameOver = true
     messageEl.textContent = "You're out of money please reset the game."
-    bet5.disabled = true
-    bet10.disabled = true
-    bet25.disabled = true
+    fiveBtnEl.disabled = true
+    tenBtnEl.disabled = true
+    twentyFiveBtnEl.disabled = true
   }
 }
 
-
-
 fiveBtnEl.addEventListener("click", function () {
-  cashCheck()
-  betEl.textContent = parseInt(betEl.textContent) + 5
-  cashEl.textContent = playersCash - parseInt(betEl.textContent)
+  if (playersCash >= 5){
+    betEl.textContent = parseInt(betEl.textContent) + 5
+    playersCash = playersCash - 5
+    cashEl.textContent = playersCash
+  }
+  if (playersCash < 5){
+    fiveBtnEl.disabled = true
+  }
 })
 
 tenBtnEl.addEventListener("click", function () {
-  cashCheck()
-  betEl.textContent = parseInt(betEl.textContent) + 10
-  cashEl.textContent = playersCash - parseInt(betEl.textContent)
+  if (playersCash >= 10){
+    betEl.textContent = parseInt(betEl.textContent) + 10
+    playersCash = playersCash - 10
+    cashEl.textContent = playersCash
+  }
+  if (playersCash < 10){
+    tenBtnEl.disabled = true
+  }
 })
 
 twentyFiveBtnEl.addEventListener("click", function () {
-  cashCheck()
-  betEl.textContent = parseInt(betEl.textContent) + 25
-  cashEl.textContent = playersCash - parseInt(betEl.textContent)
+  console.log(playersCash)
+  if (playersCash >= 25){
+    betEl.textContent = parseInt(betEl.textContent) + 25
+    playersCash = playersCash - 25
+    cashEl.textContent = playersCash
+  }
+  if (playersCash < 25){
+    twentyFiveBtnEl.disabled = true
+  }
 })
 
 resetEl.addEventListener("click", function () {
@@ -316,21 +348,4 @@ function deckFill(){
     deck.push(...deck2)
     deck2 = []
   }
-}
-
-function handleClickReset(){
-  deck = []
-  deck2 = []
-  dealersHand = []
-  playersHand = []
-  playerTotal = 0
-  dealerTotal = 0
-  bet = 0
-  bettotal = 0
-  stayClick = false
-  cardToRemove = null
-  cardsInPlay = []
-  cashEl.textContent = playersCash
-  removeCards()
-  init()
 }
