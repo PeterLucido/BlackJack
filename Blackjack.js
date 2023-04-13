@@ -213,8 +213,9 @@ function cardValues(card) {
 
 function winner(){
   if (dealerTotal === 21 && dealersHand.length === 2) {
+    cashEl.textContent = playersCash
+    playersCash = playersCash
     betEl.textContent = 0
-    cashEl.textContent = playersCash - bet
     messageEl.textContent = "The dealer got Black Jack! You lose."
     cashCheck()
     deck2.push(...playersHand, ...dealersHand)
@@ -223,9 +224,10 @@ function winner(){
     bet = 0
     return
   } else if (playerTotal === 21 && playersHand.length === 2) {
-    betEl.textContent = 0
     playersCash = playersCash + bet * 2.5
+    betEl.textContent = 0
     cashEl.textContent = playersCash
+    playersCash = playersCash
     messageEl.textContent = "Black Jack!"
     deck2.push(...playersHand, ...dealersHand)
     playersHand=[]
@@ -234,7 +236,7 @@ function winner(){
     return
   } else {
     if (playerTotal === dealerTotal) {
-      bet = bet
+      playersCash = bet + playersCash
       betEl.textContent = 0
       playersCash = playersCash
       cashEl.textContent = playersCash 
@@ -244,7 +246,7 @@ function winner(){
   if (playerTotal > dealerTotal && playerTotal <= 21 || dealerTotal > 21) {
     if (playerTotal > 21){
       betEl.textContent = 0
-      playersCash = playersCash - bet
+      playersCash = playersCash
       cashEl.textContent = playersCash
       messageEl.textContent = "You busted!"
       cashCheck()
@@ -258,14 +260,15 @@ function winner(){
     cashEl.textContent = playersCash
   } else if (dealerTotal > playerTotal && dealerTotal <= 21) {
     messageEl.textContent = "You lose!"
+    cashEl.textContent = playersCash
+    playersCash = playersCash
     betEl.textContent = 0
-    playersCash = playersCash - bet
     cashCheck()
     cashEl.textContent = playersCash
   } else if (playerTotal === dealerTotal) {
     messageEl.textContent = "Push!"
     betEl.textContent = 0
-    playersCash = playersCash + 0
+    playersCash = playersCash
     cashEl.textContent = playersCash
   } else if (dealerTotal > 21) {
     messageEl.textContent = "The dealer busted. You win!"
@@ -313,7 +316,6 @@ tenBtnEl.addEventListener("click", function () {
 })
 
 twentyFiveBtnEl.addEventListener("click", function () {
-  console.log(playersCash)
   if (playersCash >= 25){
     betEl.textContent = parseInt(betEl.textContent) + 25
     playersCash = playersCash - 25
