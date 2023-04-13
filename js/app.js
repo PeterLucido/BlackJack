@@ -52,8 +52,8 @@ function init() {
   tenBtnEl.disabled = false
   twentyFiveBtnEl.disabled = false
   deal.disabled = false
-  hit.disabled = false
-  stay.disabled = false
+  hit.disabled = true
+  stay.disabled = true
   removeCards()
 }
 
@@ -78,27 +78,27 @@ function renderCardsDeal(){
 }
 
 function renderCardsHit(){
-  let z = document.createElement('div')
-  z.setAttribute("class", `card large ${playersHand[playersHand.length-1]}`)
-  let y = document.getElementById("player-hand")
-  y.append(z)
+  let playersCard1 = document.createElement('div')
+  playersCard1.setAttribute("class", `card large ${playersHand[playersHand.length-1]}`)
+  let playersCardEl = document.getElementById("player-hand")
+  playersCardEl.append(playersCard1)
 }
 
 function renderCardsStay(){
-  let c = document.getElementById("dealer-hand")
-  c.innerHTML = ''
+  let dealerCardsEl = document.getElementById("dealer-hand")
+  dealerCardsEl.innerHTML = ''
   for (let i = 0; i < dealersHand.length; i++) {
-    let b = document.createElement('div')
-    b.setAttribute("class", `card large ${dealersHand[i]}`)
-    c.append(b)
+    let dealersCard2 = document.createElement('div')
+    dealersCard2.setAttribute("class", `card large ${dealersHand[i]}`)
+    dealerCardsEl.append(dealersCard2)
   }
 }
 
 function removeCards() {
-  let x = document.getElementById("player-hand")
-  let y = document.getElementById("dealer-hand")
-  x.innerHTML = ''
-  y.innerHTML = ''
+  let dealerCardsEl = document.getElementById("dealer-hand")
+  let playerCardsEl = document.getElementById("player-hand")
+  playerCardsEl.innerHTML = ''
+  dealerCardsEl.innerHTML = ''
   dealersHand = []
   playersHand = []
   playerTotal = 0
@@ -107,6 +107,8 @@ function removeCards() {
 
 function handleClickDeal(){
   stayClick = false
+  hit.disabled = false
+  stay.disabled = false
   if (deck.length > 4) {
     if (playersHand.length === 0 && bet > 0) {
       removeCards()
@@ -123,6 +125,7 @@ function handleClickDeal(){
   }
   messageEl.textContent = "Let's Play!"
   deckFill()
+  deal.disabled = true
 }
 
 function handleClickHit() {
@@ -137,6 +140,8 @@ function handleClickHit() {
     calculateScore()
     if (playerTotal > 21){
       messageEl.textContent = "You busted!"
+      stay.disabled = true
+      hit.disabled = true
       playersHand=[]
       dealersHand=[]
     }
@@ -281,6 +286,8 @@ function winner(){
   dealersHand=[]
   bet = 0
   cashCheck()
+  hit.disabled = true
+  stay.disabled = true
 }
 
 function cashCheck (){
@@ -305,6 +312,7 @@ fiveBtnEl.addEventListener("click", function () {
   if (playersCash < 5){
     fiveBtnEl.disabled = true
   }
+  deal.disabled = false
 })
 
 tenBtnEl.addEventListener("click", function () {
@@ -316,6 +324,7 @@ tenBtnEl.addEventListener("click", function () {
   if (playersCash < 10){
     tenBtnEl.disabled = true
   }
+  deal.disabled = false
 })
 
 twentyFiveBtnEl.addEventListener("click", function () {
@@ -327,6 +336,7 @@ twentyFiveBtnEl.addEventListener("click", function () {
   if (playersCash < 25){
     twentyFiveBtnEl.disabled = true
   }
+  deal.disabled = false
 })
 
 resetEl.addEventListener("click", function () {
